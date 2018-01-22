@@ -1,23 +1,24 @@
-export const STATUSES = {
-  VALID: 'VALID',
-  INVALID: 'INVALID',
-  UNKNOWN: 'UNKNOWN'
-}
+export const DIRECTIONS = {
+  DOWN: "DOWN",
+  LEFT: "LEFT",
+  RIGHT: "RIGHT",
+  UP: "UP"
+};
 
-export const FETCHING_STATUSES = {
-  SAVING: 'SAVING',
-  ERROR: 'ERROR',
-  IDLE: 'IDLE' 
-}
+export const KEY_LOOKUP = {
+  ArrowDown: DIRECTIONS.DOWN,
+  ArrowLeft: DIRECTIONS.LEFT,
+  ArrowRight: DIRECTIONS.RIGHT,
+  ArrowUp: DIRECTIONS.UP
+};
 
-export const SAVE_DATA = 'SAVE_DATA';
-export const SAVE_SUCCESS = 'SAVE_SUCCESS';
-export const SAVE_ERROR = 'SAVE_ERROR';
-export const UPDATE_TITLE = 'UPDATE_TITLE';
-export const UPDATE_DESCRIPTION = 'UPDATE_DESCRIPTION';
-export const UPDATE_EMAIL = 'UPDATE_EMAIL';
-export const VALIDATE = 'VALIDATE';
+export const INVALID_DIRECTION_MAP = {
+  [DIRECTIONS.DOWN]: DIRECTIONS.UP,
+  [DIRECTIONS.LEFT]: DIRECTIONS.RIGHT,
+  [DIRECTIONS.RIGHT]: DIRECTIONS.LEFT,
+  [DIRECTIONS.UP]: DIRECTIONS.DOWN
+};
 
-export const TITLE_MAX_LENGTH = 20; 
-export const EMAIL_MAX_LENGTH = 100; 
-export const DESCRIPTION_MAX_LENGTH = 100; 
+export const CHANGE_DIRECTION = "CHANGE_DIRECTION";
+export const MOVE_SNAKE = "MOVE_SNAKE";
+export const NEW_GAME = "NEW_GAME";

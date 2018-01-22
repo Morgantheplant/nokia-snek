@@ -1,47 +1,28 @@
-import {UPDATE_TITLE,
-UPDATE_DESCRIPTION,
-UPDATE_EMAIL,
-SAVE_SUCCESS,
-SAVE_DATA,
-VALIDATE} from './constants';
+import {
+  CHANGE_DIRECTION,
+  KEY_LOOKUP,
+  MOVE_SNAKE,
+  NEW_GAME
+} from "./constants";
 
-export const changeEmail = ({target}) => ({
-  type: UPDATE_EMAIL,
-  email: target.value
-})
-
-export const changeTitle = ({target}) => ({
-  type: UPDATE_TITLE,
-  title: target.value
-})
-
-export const changeDescription = ({target}) => ({
-  type: UPDATE_DESCRIPTION,
-  description: target.value
+const changeDirection = direction => ({
+  type: CHANGE_DIRECTION,
+  direction
 });
 
-const validate = () => ({
-  type: VALIDATE
+export const moveSnake = () => ({
+  type: MOVE_SNAKE
 });
 
-
-const saveSuccess = () => ({
-  type: SAVE_SUCCESS
+const startNewGame = (height = 10, width = 10) => ({
+  type: NEW_GAME,
+  height,
+  width
 });
 
-const saveData = () => ({
-  type: SAVE_DATA
-});
+export const changeDirectionHandler = ({ key }) => dispatch => {
+  const direction = KEY_LOOKUP[key];
+  direction && dispatch(changeDirection(direction));
+};
 
-export const sendData = () =>  (dispatch, getState)=> {
-  dispatch(validate())
-  if(getState().hasErrors) {
-    return 
-  }
-
-    dispatch(saveData())
-    setTimeout(()=>{
-      console.log('saving --->>>>>')
-      dispatch(saveSuccess())
-    }, 1000)
-}
+export const newGameHandler = () => dispatch => dispatch(startNewGame(20, 20));

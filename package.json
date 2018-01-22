@@ -1,7 +1,7 @@
 {
-  "name": "react_redux_validation",
+  "name": "Nokia Snek",
   "version": "1.0.0",
-  "description": "react/redux testing",
+  "description": "simple nokia snake game",
   "main": "main.js",
   "scripts": {
     "build":
@@ -34,7 +34,7 @@
     "babel-preset-react": "^6.24.1",
     "babelify": "^7.2.0",
     "browserify": "^13.0.1",
-    "ecstatic": "~0.8.0",
+    "ecstatic": "3.1.1",
     "reactify": "^1.1.1",
     "uglify-js": "^2.6.2",
     "watchify": "^3.7.0"
