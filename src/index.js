@@ -28,17 +28,17 @@ const getColor = ({ type, colorBase, row, col }) => {
   }
 };
 
-const Tile = ({ row, col, height, width, colorBase, type }) => (
+const Tile = ({ row, col, tileSize=10, colorBase, type }) => (
   <div
     className={`tile-${row}-${col}-${type}`}
     style={{
       backgroundColor: getColor({ type, colorBase, row, col }),
       border: `1px solid black`,
-      height: `${height}px`,
-      left: `${row * width}px`,
+      height: `${tileSize}px`,
+      left: `${row * tileSize}px`,
       position: "absolute",
-      top: `${col * height}px`,
-      width: `${width}px`
+      top: `${col * (tileSize)}px`,
+      width: `${tileSize}px`
     }}
   />
 );
@@ -52,11 +52,10 @@ const Board = props => (
             <Tile
               colorBase={props.colorBase}
               col={j}
-              height={props.height}
               key={`${i}-${j}`}
               row={i}
               type={tileState}
-              width={props.width}
+              tileSize={props.tileSize}
             />
           )
         );
@@ -81,6 +80,7 @@ const App = props => (
       height={props.height}
       width={props.width}
       colorBase={props.colorBase}
+      tileSize={props.tileSize}
     />
     {props.gameOver && <GameOver score={props.score} />}
   </div>
@@ -92,7 +92,8 @@ const mapStateToProps = ({
   height,
   snack,
   snake,
-  width
+  tileSize,
+  width,
 }) => {
   const board = boardSelector(height, width, snake, snack);
   const score = snake.length - 4; // default snek length is 4
@@ -102,6 +103,7 @@ const mapStateToProps = ({
     gameOver,
     height,
     score,
+    tileSize,
     width
   };
 };

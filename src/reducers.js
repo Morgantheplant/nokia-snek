@@ -3,20 +3,23 @@ import {
   DIRECTIONS,
   INVALID_DIRECTION_MAP,
   MOVE_SNAKE,
-  NEW_GAME
+  NEW_GAME,
+  LETTER_COORDS
 } from "./constants";
 
+const { S, N, E, K } = LETTER_COORDS;
 const getColorBase = () => Math.round(Math.random() * 360);
 
 const defaultState = {
   colorBase: getColorBase(),
   direction: DIRECTIONS.RIGHT,
   gameOver: false,
-  height: 0,
+  height: 20,
+  width: 20,
+  tileSize: 20,
   shouldAnimate: false,
   snack: {},
-  snake: [],
-  width: 0
+  snake: [...S, ...N, ...E, ...K]
 };
 
 const getBaseSnake = (height, width, length = 4) => {

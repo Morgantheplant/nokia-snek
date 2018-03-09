@@ -1,5 +1,5 @@
 {
-  "name": "Nokia Snek",
+  "name": "NokiaSnek",
   "version": "1.0.0",
   "description": "simple nokia snake game",
   "main": "main.js",
