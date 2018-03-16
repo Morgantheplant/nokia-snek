@@ -9,8 +9,11 @@ body,
   padding: 0;
   height: 100%;
   width: 100%;
-  max-height: 700px;
   overflow: hidden;
+}
+
+.phone-base {
+  max-height: 870px;
 }
 
 .board-container {
