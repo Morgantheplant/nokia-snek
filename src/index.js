@@ -12,36 +12,60 @@ import {
   moveSnakeHandler,
   changeDirectionHandler
 } from "./actions";
-import { boardSelector } from "./selectors";
+import { boardSelector, snakeReducer, numbersReducer } from "./selectors";
 
-const prettyColor = (a, b, c) => `hsl(${a - b}, ${100 - c}%, 50%)`;
-const getColor = ({ type, colorBase, row, col }) => {
+const prettyColor = (a, b, c, d) => {
+  const hue = d ? a : 57;
+  const sat = d ? 60 : 20;
+  return `hsl(${hue - b}, ${sat - c}%, 40%)`;
+};
+const getColor = ({ type, colorBase, row, col, isOn }) => {
   switch (type) {
-    case 2:
-      const opposite = colorBase + 180;
-      const complimenary = opposite > 360 ? opposite - 360 : opposite;
-      return prettyColor(complimenary, row, col);
+    //case 2:
+    // return prettyColor(complimenary, row, col);
     case 1:
-      return "black";
+      return "rgb(3,83,59)";
     default:
-      return prettyColor(colorBase, row, col);
+      const color = isOn ? colorBase : 57;
+      return prettyColor(color, row, col, isOn);
   }
 };
 
-const Tile = ({ row, col, tileSize=10, colorBase, type }) => (
-  <div
-    className={`tile-${row}-${col}-${type}`}
-    style={{
-      backgroundColor: getColor({ type, colorBase, row, col }),
-      border: `1px solid black`,
-      height: `${tileSize}px`,
-      left: `${row * tileSize}px`,
-      position: "absolute",
-      top: `${col * (tileSize)}px`,
-      width: `${tileSize}px`
-    }}
-  />
+const Snack = ({ backgroundColor }) => (
+  <div className="snack">
+    <div className="middle" style={{ backgroundColor }} />
+    <div className="vertical" />
+    <div className="horizontal" />
+  </div>
 );
+
+const Tile = ({ row, col, tileSize = 10, colorBase, type, isOn }) => {
+  const backgroundColor = getColor({ type, colorBase, row, col, isOn });
+  return (
+    <div
+      className={`tile-${row}-${col}-${type}`}
+      style={{
+        backgroundColor,
+        border: `.5px solid ${isOn
+          ? "rgba(42, 163, 122, 0.5)"
+          : getColor({
+              type,
+              colorBase: colorBase - 10,
+              row: row - 1,
+              col,
+              isOn
+            })}`,
+        height: `${tileSize}px`,
+        left: `${row * tileSize}px`,
+        position: "absolute",
+        top: `${col * tileSize}px`,
+        width: `${tileSize}px`
+      }}
+    >
+      {type === 2 && <Snack backgroundColor={backgroundColor} />}
+    </div>
+  );
+};
 
 const Board = props => (
   <div className="board-container">
@@ -56,6 +80,7 @@ const Board = props => (
               row={i}
               type={tileState}
               tileSize={props.tileSize}
+              isOn={props.isOn}
             />
           )
         );
@@ -64,47 +89,66 @@ const Board = props => (
   </div>
 );
 
-const GameOver = ({ score }) => (
-  <div className="game-over">
-    Game Over<p>{`score: ${score}`}</p>
+const GameOver = ({ score, highScore, height, width, isOn }) => (
+  <div
+    className={`game-over ${isOn ? 'on' : ''}`}
+    style={{
+      height: `${5 * height}px`,
+      width: `${5 * width}px`
+    }}
+  >
+    <p>{`score: ${score}`}</p>
+    <p>{`high score: ${highScore}`}</p>
   </div>
 );
 
 const App = props => (
   <div className="main-container">
-    <button className="main-btn" onClick={props.newGameHandler}>
-      New Game
-    </button>
-    <Board
-      board={props.board}
-      height={props.height}
-      width={props.width}
-      colorBase={props.colorBase}
-      tileSize={props.tileSize}
-    />
-    {props.gameOver && <GameOver score={props.score} />}
+    {!props.gameOver ? (
+      <Board
+        board={props.board}
+        height={props.height}
+        width={props.width}
+        colorBase={props.colorBase}
+        tileSize={props.tileSize}
+        isOn={props.isOn}
+      />
+    ) : (
+      <GameOver
+        height={props.height}
+        width={props.width}
+        score={props.score}
+        isOn={props.isOn}
+        highScore={props.highScore}
+      />
+    )}
   </div>
 );
 
-const mapStateToProps = ({
-  colorBase,
-  gameOver,
-  height,
-  snack,
-  snake,
-  tileSize,
-  width,
-}) => {
+const mapStateToProps = state => {
+  const {
+    colorBase,
+    gameOver,
+    highScore,
+    height,
+    snack,
+    snake,
+    tileSize,
+    width
+  } = snakeReducer(state);
+  const { buttonsOn: isOn } = numbersReducer(state);
   const board = boardSelector(height, width, snake, snack);
   const score = snake.length - 4; // default snek length is 4
   return {
     board,
     colorBase,
     gameOver,
+    highScore,
     height,
     score,
     tileSize,
-    width
+    width,
+    isOn
   };
 };
 

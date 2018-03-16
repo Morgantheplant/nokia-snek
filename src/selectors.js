@@ -1,5 +1,5 @@
 const createNewBoard = (height, width) =>
-  new Array(height).fill().map(() => new Array(width).fill().map(() => 0));
+  new Array(width).fill().map(() => new Array(height).fill().map(() => 0));
 
 const addSnakeToBoard = (board = [], snake = []) => {
   if (board.length) {
@@ -24,3 +24,7 @@ export const boardSelector = (height, width, snake, snack) => {
   const updatedBoard = addSnakeToBoard(board, snake);
   return addSnackToBoard(updatedBoard, snack);
 };
+
+export const snakeReducer = state => state.snakeReducer;
+export const numbersReducer = state => state.numbersReducer;
+export const scoreReducer = state => state.scoreReducer;

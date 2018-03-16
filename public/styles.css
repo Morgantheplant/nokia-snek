@@ -1,5 +1,16 @@
-body {
-  background-color: black;
+* {
+  padding: 0;
+  margin: 0;
+}
+html,
+body,
+.phone-base {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  /*perspective: 1000px;*/
+  overflow: hidden;
 }
 
 .board-container {
@@ -7,15 +18,230 @@ body {
 }
 
 .game-over {
-  background-color: black;
-  border: 1px solid white;
-  color: white;
-  height: 100px;
-  left: 50%;
-  padding-top: 20px;
+  background-color: #8a8776;
+  color: black;
   position: absolute;
-  text-align: center;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  width: 200px;
+  padding: 5px;
+  box-sizing: border-box;
+}
+
+.on.game-over {
+  background: rgb(54,150,115);
+}
+
+.phone-container {
+  height: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  position: absolute;
+}
+.number-pad {
+  position: absolute;
+  top: 63%;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 30%;
+  width: 60%;
+}
+
+.phone-base {
+  position: absolute;
+  top: 0;
+  left: 0;
+  /*text-align: center;*/
+}
+
+.phone-base img {
+  height: 100%;
+  width: auto;
+}
+
+.key.button1 {
+    position: absolute;
+    top: 7%;
+    left: 8%;
+    height: 15%;
+}
+
+.key.button2 {
+    position: absolute;
+    top: 7%;
+    height: 15%;
+    left: 39%;
+}
+
+
+.key.button3 {
+    position: absolute;
+    top: 6%;
+    height: 15%;
+    left: 69%;
+}
+
+.key.button3 {
+    position: absolute;
+    top: 6%;
+    height: 15%;
+    left: 69%;
+}
+
+.key.button4 {
+    position: absolute;
+    top: 26%;
+    height: 15%;
+    left: 7%;
+}
+
+.key.button5 {
+    position: absolute;
+    top: 26%;
+    height: 15%;
+    left: 39%;
+}
+
+.key.button6 {
+    position: absolute;
+    top: 26%;
+    height: 15%;
+    left: 69%;
+}
+
+.key.button7 {
+    position: absolute;
+    top: 46%;
+    height: 15%;
+    left: 7%;
+}
+
+.key.button8 {
+    position: absolute;
+    top: 46%;
+    height: 15%;
+    left: 39%;
+}
+
+.key.button9 {
+    position: absolute;
+    top: 46%;
+    height: 15%;
+    left: 69%;
+}
+
+.key.buttonstar {
+    position: absolute;
+    top: 67%;
+    height: 13%;
+    left: 11%;
+}
+
+.key.buttonpound {
+    position: absolute;
+    top: 64%;
+    height: 15%;
+    left: 69%;
+}
+
+.key.button0 {
+    position: absolute;
+    top: 64%;
+    height: 15%;
+    left: 39%;
+}
+
+.key.buttonpound {
+    position: absolute;
+    top: 67%;
+    height: 13%;
+    left: 74%;
+}
+
+.key.clear {
+    position: absolute;
+    top: 53.5%;
+    height: 5%;
+    left: 27%;
+}
+
+.key.up {
+    position: absolute;
+    top: 53%;
+    height: 4.5%;
+    left: 63%;
+}
+
+.key.down {
+    position: absolute;
+    top: 59%;
+    height: 5%;
+    left: 62%;
+}
+
+.main-container {
+    position: absolute;
+    top: 35%;
+    left: 28.6%;
+}
+
+.pressed{
+  border: 1px solid rgba(0,0,0,0.5);
+  border-radius: 50%;
+}
+
+button.home-btn {
+    top: 53%;
+    background: url(./images/home.png);
+    height: 7%;
+    border: none;
+    width: 20%;
+    position: absolute;
+    background-size: cover;
+    left: 40%;
+}
+
+
+.key.home {
+    position: absolute;
+    top: 53.5%;
+    left: 41.35%;
+    height: 6.5%;
+}
+
+.key.home.pressed {
+    border: 0.5px solid rgba(0,0,0,0);
+}
+
+.snack {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+}
+
+.vertical {
+    position: absolute;
+    height: 100%;
+    width: 25%;
+    background-color: rgb(3,83,59);
+    transform: translateX(-50%);
+    top: 0;
+    left: 50%;
+}
+
+.horizontal {
+    position: absolute;
+    height: 25%;
+    width: 100%;
+    background-color: rgb(3,83,59);
+    transform: translateY(-60%);
+    top: 50%;
+    left: 0;
+}
+
+.middle {
+    position: absolute;
+    height: 22%;
+    width: 22%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    z-index: 10;
 }

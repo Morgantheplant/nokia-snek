@@ -1,25 +1,35 @@
 import {
   CHANGE_DIRECTION,
+  CHANGE_BOARD_HEIGHT,
   DIRECTIONS,
   INVALID_DIRECTION_MAP,
   MOVE_SNAKE,
   NEW_GAME,
-  LETTER_COORDS
+  BUTTONS_ON,
+  BUTTONS_OFF,
+  DEPRESS_BUTTON,
+  SCREENS,
+  SET_SCORE
 } from "./constants";
+import { combineReducers } from "redux";
 
-const { S, N, E, K } = LETTER_COORDS;
-const getColorBase = () => Math.round(Math.random() * 360);
+const getColorBase = () => 176;
+
+const { innerHeight } = window;
+const height = innerHeight * 0.0286;
+const width = height * 1.38;
 
 const defaultState = {
   colorBase: getColorBase(),
   direction: DIRECTIONS.RIGHT,
   gameOver: false,
-  height: 20,
-  width: 20,
-  tileSize: 20,
+  height: Math.round(height),
+  width: Math.round(width),
+  tileSize: 5,
   shouldAnimate: false,
   snack: {},
-  snake: [...S, ...N, ...E, ...K]
+  snake: [],
+  highScore: 0
 };
 
 const getBaseSnake = (height, width, length = 4) => {
@@ -58,7 +68,7 @@ const nextCordsForDirection = ({ coords, direction, height, width }) => {
       const xRight = coords.x + 1;
       return {
         ...coords,
-        x: xRight >= height ? 0 : xRight
+        x: xRight >= width ? 0 : xRight
       };
     default:
       return coords;
@@ -77,7 +87,8 @@ const hasCollision = (state, nextCoords) =>
 const gameOver = state => ({
   ...state,
   shouldAnimate: false,
-  gameOver: true
+  gameOver: true,
+  highScore: state.snake.length > state.highScore ? state.snake.length : state.highScore
 });
 
 const sameCoords = (first, second) =>
@@ -111,7 +122,7 @@ const findEmptyTile = (snake, height, width) => {
   };
 };
 
-export const rootReducer = (state = defaultState, action) => {
+export const snakeReducer = (state = defaultState, action) => {
   switch (action.type) {
     case MOVE_SNAKE:
       const nextCoords = findNextCoords(state);
@@ -127,7 +138,7 @@ export const rootReducer = (state = defaultState, action) => {
           }
         : state;
     case NEW_GAME:
-      const { height, width } = action;
+      const { height, width } = state;
       const snake = getBaseSnake(height, width, 4);
       const snack = findEmptyTile(snake, height, width);
       return {
@@ -141,7 +152,66 @@ export const rootReducer = (state = defaultState, action) => {
         snake,
         width
       };
+    case CHANGE_BOARD_HEIGHT:
+      return {
+        ...state,
+        height: action.height,
+        width: action.width
+      };
     default:
       return state;
   }
 };
+
+const numbers1to9 = new Array(9).fill().map((_, i) => i + 1);
+const bottomRow = ["star", 0, "pound"];
+const keyPad = [...numbers1to9, ...bottomRow];
+const keyPressMap = keyPad.reduce(
+  (acc, name) => ({
+    ...acc,
+    [name]: false
+  }),
+  keyPad
+);
+
+const defaultButtonState = {
+  buttonsOn: false,
+  keyPad,
+  keyPressMap
+};
+
+export const numbersReducer = (state = defaultButtonState, action) => {
+  switch (action.type) {
+    case BUTTONS_ON:
+      return {
+        ...state,
+        buttonsOn: true,
+        keyPressMap: {
+          ...state.keyPressMap,
+          [action.name]: true
+        }
+      };
+    case BUTTONS_OFF:
+      return {
+        ...state,
+        buttonsOn: false
+      };
+    case DEPRESS_BUTTON: 
+      console.log('depressing', action.name)
+      return {
+        ...state,
+        keyPressMap: {
+          ...state.keyPressMap,
+          [action.name]: false
+        }
+    }  
+    default:
+      return state;
+  }
+};
+
+
+export const rootReducer = combineReducers({
+  numbersReducer,
+  snakeReducer
+});
