@@ -197,7 +197,6 @@ export const numbersReducer = (state = defaultButtonState, action) => {
         buttonsOn: false
       };
     case DEPRESS_BUTTON: 
-      console.log('depressing', action.name)
       return {
         ...state,
         keyPressMap: {
