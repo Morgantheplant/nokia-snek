@@ -88,7 +88,7 @@ const gameOver = state => ({
   ...state,
   shouldAnimate: false,
   gameOver: true,
-  highScore: state.snake.length > state.highScore ? state.snake.length : state.highScore
+  highScore: state.snake.length - 4 > state.highScore ? state.snake.length - 4 : state.highScore
 });
 
 const sameCoords = (first, second) =>
