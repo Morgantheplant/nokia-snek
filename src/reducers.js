@@ -16,7 +16,7 @@ import { combineReducers } from "redux";
 const getColorBase = () => 176;
 
 const { innerHeight } = window;
-const height = innerHeight * 0.0286;
+const height = Math.min(innerHeight * 0.0286, 25);
 const width = height * 1.38;
 
 const defaultState = {
