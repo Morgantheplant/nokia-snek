@@ -19,10 +19,12 @@ body,
 
 .game-over {
   background-color: #8a8776;
-  color: black;
+  color: #1c1d1d;
   position: absolute;
   padding: 5px;
   box-sizing: border-box;
+  text-shadow: 1px 0px 0px #535151;
+
 }
 
 .on.game-over {
