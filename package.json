@@ -4,8 +4,7 @@
   "description": "simple nokia snake game",
   "main": "main.js",
   "scripts": {
-    "build":
-      "NODE_ENV=production browserify main.js | uglifyjs -cm > public/bundle.js",
+    "build": "NODE_ENV=production browserify main.js | uglifyjs -cm > public/bundle.js",
     "start": "node server.js",
     "watch": "watchify main.js -o public/bundle.js -dv",
     "postinstall": "npm run build"
@@ -13,6 +12,7 @@
   "author": "morgantheplant",
   "dependencies": {
     "babel-polyfill": "^6.26.0",
+    "express": "^4.16.3",
     "react": "16.2.0",
     "react-dom": "16.2.0",
     "react-redux": "4.4.8",
@@ -24,7 +24,11 @@
       [
         "babelify",
         {
-          "presets": ["es2015", "react", "stage-2"]
+          "presets": [
+            "es2015",
+            "react",
+            "stage-2"
+          ]
         }
       ]
     ]
