@@ -5,6 +5,8 @@ import {
   INVALID_DIRECTION_MAP,
   MOVE_SNAKE,
   NEW_GAME,
+  TITLE_SCREEN,
+  GAME_OVER,
   BUTTONS_ON,
   BUTTONS_OFF,
   DEPRESS_BUTTON,
@@ -22,7 +24,6 @@ const width = height * 1.38;
 const defaultState = {
   colorBase: getColorBase(),
   direction: DIRECTIONS.RIGHT,
-  gameOver: false,
   height: Math.round(height),
   width: Math.round(width),
   tileSize: 5,
@@ -75,19 +76,18 @@ const nextCordsForDirection = ({ coords, direction, height, width }) => {
   }
 };
 
-const findNextCoords = ({ snake, direction, height, width }) => {
+export const findNextCoords = ({ snake, direction, height, width }) => {
   const head = snake[0];
   return nextCordsForDirection({ coords: head, direction, height, width });
 };
 
-const hasCollision = (state, nextCoords) =>
+export const hasCollision = (state, nextCoords) =>
   state.snake &&
   state.snake.some(({ x, y }) => nextCoords.x === x && nextCoords.y === y);
 
 const gameOver = state => ({
   ...state,
   shouldAnimate: false,
-  gameOver: true,
   highScore: state.snake.length - 4 > state.highScore ? state.snake.length - 4 : state.highScore
 });
 
@@ -125,10 +125,10 @@ const findEmptyTile = (snake, height, width) => {
 export const snakeReducer = (state = defaultState, action) => {
   switch (action.type) {
     case MOVE_SNAKE:
-      const nextCoords = findNextCoords(state);
-      return hasCollision(state, nextCoords)
-        ? gameOver(state)
-        : moveSnake(state, nextCoords);
+      const { nextCoords } = action; 
+      return moveSnake(state, nextCoords);
+    case GAME_OVER:
+      return gameOver(state);    
     case CHANGE_DIRECTION:
       const invalid = INVALID_DIRECTION_MAP[state.direction];
       return action.direction !== invalid
@@ -145,7 +145,6 @@ export const snakeReducer = (state = defaultState, action) => {
         ...state,
         colorBase: getColorBase(),
         direction: defaultState.direction,
-        gameOver: false,
         height,
         shouldAnimate: true,
         snack,
@@ -158,6 +157,12 @@ export const snakeReducer = (state = defaultState, action) => {
         height: action.height,
         width: action.width
       };
+
+    case TITLE_SCREEN:
+      return {
+        ...defaultState,
+        shouldAnimate: false
+      }  
     default:
       return state;
   }
@@ -210,7 +215,24 @@ export const numbersReducer = (state = defaultButtonState, action) => {
 };
 
 
+const defaultScreenState = SCREENS.TITLE
+
+export const screenReducer = (state=defaultScreenState, action) => {
+  switch (action.type) {
+    case GAME_OVER:
+      return SCREENS.SCORES;
+    case NEW_GAME:
+      return SCREENS.SNAKE;
+    case TITLE_SCREEN: 
+      return SCREENS.TITLE;
+    default:
+      return state;
+  }
+}
+
+
 export const rootReducer = combineReducers({
   numbersReducer,
+  screenReducer,
   snakeReducer
 });

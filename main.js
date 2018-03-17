@@ -2,18 +2,17 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import getStore from "./src/store";
-import App from "./src";
-import { changeDirectionHandler, moveSnake, changeBoardSize } from "./src/actions";
+import { keyDownHandler, nextTick, changeBoardSize } from "./src/actions";
 import { snakeReducer } from "./src/selectors";
 
-import Phone from './src/Phone.jsx';
+import Phone from './src/components/Phone';
 
 const store = getStore();
 
 (function looper() {
   const { shouldAnimate } = snakeReducer(store.getState());
   if (shouldAnimate) {
-    store.dispatch(moveSnake());
+    store.dispatch(nextTick());
   }
   setTimeout(function() {
     looper();
@@ -21,7 +20,7 @@ const store = getStore();
 })();
 
 window.addEventListener("keydown", e => {
-  store.dispatch(changeDirectionHandler(e));
+  store.dispatch(keyDownHandler(e));
 });
 
 window.addEventListener("resize", e => {

@@ -10,6 +10,8 @@ export const KEY_LOOKUP = {
   ArrowLeft:"button4",
   ArrowRight: "button6",
   ArrowUp: "button2",
+  " " : "home",
+  Enter: "home",
   button2: DIRECTIONS.UP,
   button4: DIRECTIONS.LEFT,
   button6: DIRECTIONS.RIGHT,
@@ -27,7 +29,15 @@ export const CHANGE_DIRECTION = "CHANGE_DIRECTION";
 export const CHANGE_BOARD_HEIGHT = "CHANGE_BOARD_HEIGHT";
 export const MOVE_SNAKE = "MOVE_SNAKE";
 export const NEW_GAME = "NEW_GAME";
+export const TITLE_SCREEN = "TITLE_SCREEN";
+export const GAME_OVER = "GAME_OVER"; 
 export const BUTTONS_ON = "BUTTONS_ON";
 export const BUTTONS_OFF = "BUTTONS_OFF";
 export const DEPRESS_BUTTON = "DEPRESS_BUTTON";
 export const SET_SCORE = "SET_SCORE";
+
+export const SCREENS = {
+  TITLE: 'TITLE',
+  SNAKE: 'SNAKE',
+  SCORES: 'SCORES'
+}
