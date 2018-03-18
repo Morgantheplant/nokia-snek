@@ -4,8 +4,7 @@ import { Provider } from "react-redux";
 import getStore from "./src/store";
 import { keyDownHandler, nextTick, changeBoardSize } from "./src/actions";
 import { snakeReducer } from "./src/selectors";
-
-import Phone from './src/components/Phone';
+import Phone from './src/components/Phone'
 
 const store = getStore();
 
@@ -33,3 +32,5 @@ ReactDOM.render(
   </Provider>,
   document.querySelector("#content")
 );
+
+

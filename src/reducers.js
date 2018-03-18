@@ -11,7 +11,8 @@ import {
   BUTTONS_ON,
   BUTTONS_OFF,
   DEPRESS_BUTTON,
-  SCREENS
+  SCREENS,
+  KEYPAD
 } from "./constants";
 
 const getColorBase = () => 176;
@@ -175,20 +176,15 @@ export const snakeReducer = (state = defaultState, action) => {
   }
 };
 
-const numbers1to9 = new Array(9).fill().map((_, i) => i + 1);
-const bottomRow = ["star", 0, "pound"];
-const keyPad = [...numbers1to9, ...bottomRow];
-const keyPressMap = keyPad.reduce(
+const keyPressMap = KEYPAD.reduce(
   (acc, name) => ({
     ...acc,
     [name]: false
-  }),
-  keyPad
-);
+  }),{});
 
 const defaultButtonState = {
   buttonsOn: false,
-  keyPad,
+  keyPad: KEYPAD,
   keyPressMap
 };
 

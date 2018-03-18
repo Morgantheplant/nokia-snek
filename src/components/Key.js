@@ -14,7 +14,16 @@ export class Key extends Component {
     const pressedClass = isPressed ? "pressed" : "";
     return (
       <div className={`${keyName} ${pressedClass}`} onClick={this.handleClick}>
-        <img src={`./images/${name}${isOn ? "-on" : ""}.png`} alt={keyName} />
+        <img
+          className={isOn ? "" : "hidden"}
+          src={`./images/${name}-on.png`}
+          alt={keyName}
+        />
+        <img
+          className={isOn ? "hidden" : ""}
+          src={`./images/${name}.png`}
+          alt={keyName}
+        />
       </div>
     );
   }

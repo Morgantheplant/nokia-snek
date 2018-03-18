@@ -8,6 +8,7 @@ const prettyColor = (a, b, c, d) => {
 };
 
 const snakeColor = "rgb(3,83,59)";
+const borderColorOn = "rgba(42, 163, 122, 0.5)";
 
 const getColor = ({ type, colorBase, row, col, isOn }) => {
   switch (type) {
@@ -41,7 +42,7 @@ const Tile = ({ row, col, tileSize = 10, colorBase, type, isOn }) => {
       style={{
         backgroundColor,
         border: `.5px solid ${isOn
-          ? "rgba(42, 163, 122, 0.5)"
+          ? borderColorOn
           : getColor({
               type,
               colorBase: colorBase - 10,

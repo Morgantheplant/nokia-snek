@@ -95,6 +95,13 @@ img.gh-icon {
 
 .key {
   position: absolute;
+  cursor: pointer;
+}
+
+.key img.hidden {
+  position: absolute;
+  pointer-events: none;
+  opacity:0;
 }
 
 .key.button1 {
@@ -253,15 +260,15 @@ button.home-btn {
     height: 25%;
     width: 100%;
     background-color: rgb(3,83,59);
-    transform: translateY(-60%);
+    transform: translateY(-50%);
     top: 50%;
     left: 0;
 }
 
 .middle {
     position: absolute;
-    height: 22%;
-    width: 22%;
+    height: 25%;
+    width: 25%;
     top: 50%;
     left: 50%;
     transform: translate(-50%,-50%);

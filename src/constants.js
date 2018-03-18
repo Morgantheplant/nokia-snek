@@ -12,6 +12,8 @@ export const BUTTON_NAMES = {
   TWO: 'button2',
   CLEAR: 'clear',
   HOME: 'home',
+  UP: 'up',
+  DOWN: 'down'
 };
 
 export const KEY_LOOKUP = {
@@ -49,3 +51,7 @@ export const SCREENS = {
   SNAKE: 'SNAKE',
   SCORES: 'SCORES',
 };
+
+export const NUMBERS1TO9 = new Array(9).fill().map((_, i) => i + 1);
+export const BOTTOM_ROW = ["star", 0, "pound"];
+export const KEYPAD = [...NUMBERS1TO9, ...BOTTOM_ROW];

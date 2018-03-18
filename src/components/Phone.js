@@ -5,6 +5,7 @@ import Key from "./Key";
 import { connect } from "react-redux";
 import { pressButton } from "../actions";
 import { numbersReducer } from "../selectors";
+import { BUTTON_NAMES } from '../constants';
 
 const Phone = props => (
   <div className="phone-base">
@@ -12,36 +13,35 @@ const Phone = props => (
       <Screen />
       <Key
         onClick={props.pressButton}
-        name="home"
+        name={BUTTON_NAMES.HOME}
         isPressed={props.keyPressMap.home}
         isOn={props.isOn}
       />
       <Key
         onClick={props.pressButton}
-        name="down"
+        name={BUTTON_NAMES.DOWN}
         isPressed={props.keyPressMap.down}
         isOn={props.isOn}
       />
       <Key
         onClick={props.pressButton}
-        name="up"
+        name={BUTTON_NAMES.UP}
         isPressed={props.keyPressMap.up}
         isOn={props.isOn}
       />
       <Key
         onClick={props.pressButton}
-        name="clear"
+        name={BUTTON_NAMES.CLEAR}
         isPressed={props.keyPressMap.clear}
         isOn={props.isOn}
       />
-
       <NumberPad
         keyPressMap={props.keyPressMap}
         keyPad={props.keyPad}
         isOn={props.isOn}
         onClick={props.pressButton}
       />
-      <img src="./images/Nokia_5110_.png" alt="noke 5110" />
+      <img src="./images/Nokia_5110.png" alt="nokia 5110" />
     </div>
   </div>
 );
