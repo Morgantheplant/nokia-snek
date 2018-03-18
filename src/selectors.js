@@ -3,7 +3,7 @@ const createNewBoard = (height, width) =>
 
 const addSnakeToBoard = (board = [], snake = []) => {
   if (board.length) {
-    snake.slice(0, snake.length).forEach(({ x, y }) => {
+    snake.forEach(({ x, y }) => {
       board[x][y] = 1;
     });
   }

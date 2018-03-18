@@ -13,7 +13,7 @@ import {
   BUTTON_NAMES,
 } from './constants';
 import { snakeReducer, screenReducer } from './selectors';
-import { findNextCoords, hasCollision } from './reducers';
+import { findNextCoords, hasCollision, screenDimsFromInnerHeight } from './reducers';
 
 const changeDirection = direction => ({
   type: CHANGE_DIRECTION,
@@ -104,11 +104,9 @@ let debouncer;
 export const changeBoardSize = ({ currentTarget }) => (dispatch) => {
   clearTimeout(debouncer);
   debouncer = setTimeout(() => {
-    const { innerHeight } = currentTarget;
-    const height = innerHeight * 0.0286;
-    const width = height * 1.38;
+    const { screenHeight, screenWidth } = screenDimsFromInnerHeight()
     dispatch(pressButton(BUTTON_NAMES.CLEAR)); // reset game
-    dispatch(boardHeight(Math.round(height), Math.round(width)));
+    dispatch(boardHeight(Math.round(screenHeight), Math.round(screenWidth)));
   }, 100);
 };
 

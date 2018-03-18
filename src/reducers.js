@@ -17,15 +17,20 @@ import {
 
 const getColorBase = () => 176;
 
-const { innerHeight } = window;
-const initialHeight = Math.min(innerHeight * 0.0286, 25);
-const initialWidth = initialHeight * 1.38;
+export const screenDimsFromInnerHeight = () => {
+  const { innerHeight } = window;
+  const screenHeight =  Math.round(Math.min(innerHeight * 0.0286, 25));
+  const screenWidth = Math.round(screenHeight * 1.38);
+  return { screenHeight, screenWidth }
+}
+
+const { screenHeight, screenWidth } = screenDimsFromInnerHeight();
 
 const defaultState = {
   colorBase: getColorBase(),
   direction: DIRECTIONS.RIGHT,
-  height: Math.round(initialHeight),
-  width: Math.round(initialWidth),
+  height: screenHeight,
+  width: screenWidth,
   tileSize: 5,
   shouldAnimate: false,
   snack: {},

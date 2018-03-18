@@ -32,5 +32,3 @@ ReactDOM.render(
   </Provider>,
   document.querySelector("#content")
 );
-
-
