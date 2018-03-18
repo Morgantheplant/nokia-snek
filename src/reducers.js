@@ -1,3 +1,4 @@
+import { combineReducers } from "redux";
 import {
   CHANGE_DIRECTION,
   CHANGE_BOARD_HEIGHT,
@@ -10,22 +11,20 @@ import {
   BUTTONS_ON,
   BUTTONS_OFF,
   DEPRESS_BUTTON,
-  SCREENS,
-  SET_SCORE
+  SCREENS
 } from "./constants";
-import { combineReducers } from "redux";
 
 const getColorBase = () => 176;
 
 const { innerHeight } = window;
-const height = Math.min(innerHeight * 0.0286, 25);
-const width = height * 1.38;
+const initialHeight = Math.min(innerHeight * 0.0286, 25);
+const initialWidth = initialHeight * 1.38;
 
 const defaultState = {
   colorBase: getColorBase(),
   direction: DIRECTIONS.RIGHT,
-  height: Math.round(height),
-  width: Math.round(width),
+  height: Math.round(initialHeight),
+  width: Math.round(initialWidth),
   tileSize: 5,
   shouldAnimate: false,
   snack: {},
@@ -78,7 +77,12 @@ const nextCordsForDirection = ({ coords, direction, height, width }) => {
 
 export const findNextCoords = ({ snake, direction, height, width }) => {
   const head = snake[0];
-  return nextCordsForDirection({ coords: head, direction, height, width });
+  return nextCordsForDirection({
+    coords: head,
+    direction,
+    height,
+    width
+  });
 };
 
 export const hasCollision = (state, nextCoords) =>
@@ -88,8 +92,25 @@ export const hasCollision = (state, nextCoords) =>
 const gameOver = state => ({
   ...state,
   shouldAnimate: false,
-  highScore: state.snake.length - 4 > state.highScore ? state.snake.length - 4 : state.highScore
+  highScore:
+    state.snake.length - 4 > state.highScore
+      ? state.snake.length - 4
+      : state.highScore
 });
+
+const findEmptyTile = (snake, height, width) => {
+  let x, y;
+  let invalid = true;
+  while (invalid) {
+    x = Math.floor(Math.random() * width);
+    y = Math.floor(Math.random() * height);
+    invalid = snake.some(section => section.x === x && section.y === y);
+  }
+  return {
+    x,
+    y
+  };
+};
 
 const sameCoords = (first, second) =>
   first.x === second.x && first.y === second.y;
@@ -108,27 +129,13 @@ const moveSnake = (state, nextCoords) => {
   };
 };
 
-const findEmptyTile = (snake, height, width) => {
-  let x, y;
-  let invalid = true;
-  while (invalid) {
-    x = Math.floor(Math.random() * width);
-    y = Math.floor(Math.random() * height);
-    invalid = snake.some(section => section.x === x && section.y === y);
-  }
-  return {
-    x,
-    y
-  };
-};
-
 export const snakeReducer = (state = defaultState, action) => {
   switch (action.type) {
     case MOVE_SNAKE:
-      const { nextCoords } = action; 
+      const { nextCoords } = action;
       return moveSnake(state, nextCoords);
     case GAME_OVER:
-      return gameOver(state);    
+      return gameOver(state);
     case CHANGE_DIRECTION:
       const invalid = INVALID_DIRECTION_MAP[state.direction];
       return action.direction !== invalid
@@ -162,7 +169,7 @@ export const snakeReducer = (state = defaultState, action) => {
       return {
         ...defaultState,
         shouldAnimate: false
-      }  
+      };
     default:
       return state;
   }
@@ -201,35 +208,33 @@ export const numbersReducer = (state = defaultButtonState, action) => {
         ...state,
         buttonsOn: false
       };
-    case DEPRESS_BUTTON: 
+    case DEPRESS_BUTTON:
       return {
         ...state,
         keyPressMap: {
           ...state.keyPressMap,
           [action.name]: false
         }
-    }  
+      };
     default:
       return state;
   }
 };
 
+const defaultScreenState = SCREENS.TITLE;
 
-const defaultScreenState = SCREENS.TITLE
-
-export const screenReducer = (state=defaultScreenState, action) => {
+export const screenReducer = (state = defaultScreenState, action) => {
   switch (action.type) {
     case GAME_OVER:
       return SCREENS.SCORES;
     case NEW_GAME:
       return SCREENS.SNAKE;
-    case TITLE_SCREEN: 
+    case TITLE_SCREEN:
       return SCREENS.TITLE;
     default:
       return state;
   }
-}
-
+};
 
 export const rootReducer = combineReducers({
   numbersReducer,

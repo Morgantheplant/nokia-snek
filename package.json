@@ -7,6 +7,7 @@
     "build": "NODE_ENV=production browserify main.js | uglifyjs -cm > public/bundle.js",
     "start": "node server.js",
     "watch": "watchify main.js -o public/bundle.js -dv",
+    "lint": "eslint ./src",
     "postinstall": "npm run build"
   },
   "author": "morgantheplant",
@@ -34,12 +35,17 @@
     ]
   },
   "devDependencies": {
-    "babel-preset-stage-2": "^6.24.1",
     "babel-preset-es2015": "^6.3.13",
     "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1",
     "babelify": "^7.2.0",
     "browserify": "^13.0.1",
     "ecstatic": "3.1.1",
+   "eslint": "^3.4.0",
+    "eslint-config-airbnb": "^10.0.1",
+    "eslint-plugin-import": "^1.14.0",
+    "eslint-plugin-jsx-a11y": "^2.2.1",
+    "eslint-plugin-react": "^6.2.0",
     "reactify": "^1.1.1",
     "uglify-js": "^2.6.2",
     "watchify": "^3.7.0"

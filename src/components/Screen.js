@@ -1,24 +1,16 @@
 import "babel-polyfill";
-import React, { Component } from "react";
+import React from "react";
 import { connect } from "react-redux";
-import {
-  TITLE_MAX_LENGTH,
-  EMAIL_MAX_LENGTH,
-  FETCHING_STATUSES,
-  DESCRIPTION_MAX_LENGTH,
-  SCREENS
-} from "../constants";
-import { newGameHandler, changeDirectionHandler } from "../actions";
+import SnakeBoard from "./SnakeBoard";
+import GameOver from "./GameOver";
+import Title from "./Title";
+import { SCREENS } from "../constants";
 import {
   boardSelector,
   snakeReducer,
   numbersReducer,
   screenReducer
 } from "../selectors";
-import Tile from "./Tile";
-import SnakeBoard from "./SnakeBoard";
-import GameOver from "./GameOver";
-import Title from './Title';
 
 const ActiveScreen = props => {
   switch (props.screen) {
@@ -83,8 +75,4 @@ const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToProps = {
-  newGameHandler
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Screen);
+export default connect(mapStateToProps)(Screen);

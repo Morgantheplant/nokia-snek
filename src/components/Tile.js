@@ -7,7 +7,7 @@ const prettyColor = (a, b, c, d) => {
   return `hsl(${hue - b}, ${sat - c}%, 40%)`;
 };
 
-const snakeColor = "rgb(3,83,59)"
+const snakeColor = "rgb(3,83,59)";
 
 const getColor = ({ type, colorBase, row, col, isOn }) => {
   switch (type) {
@@ -28,7 +28,13 @@ const Snack = ({ backgroundColor }) => (
 );
 
 const Tile = ({ row, col, tileSize = 10, colorBase, type, isOn }) => {
-  const backgroundColor = getColor({ type, colorBase, row, col, isOn });
+  const backgroundColor = getColor({
+    type,
+    colorBase,
+    row,
+    col,
+    isOn
+  });
   return (
     <div
       className={`tile-${row}-${col}-${type}`}

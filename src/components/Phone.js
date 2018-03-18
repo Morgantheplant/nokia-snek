@@ -1,10 +1,10 @@
-import React, { Component } from "react";
+import React from "react";
 import Screen from "./Screen";
+import NumberPad from "./NumberPad";
+import Key from "./Key";
 import { connect } from "react-redux";
 import { pressButton } from "../actions";
 import { numbersReducer } from "../selectors";
-import NumberPad from './NumberPad';
-import Key from './Key';
 
 const Phone = props => (
   <div className="phone-base">
@@ -13,25 +13,25 @@ const Phone = props => (
       <Key
         onClick={props.pressButton}
         name="home"
-        isPressed={props.keyPressMap["home"]}
+        isPressed={props.keyPressMap.home}
         isOn={props.isOn}
       />
       <Key
         onClick={props.pressButton}
         name="down"
-        isPressed={props.keyPressMap["down"]}
+        isPressed={props.keyPressMap.down}
         isOn={props.isOn}
       />
       <Key
-       onClick={props.pressButton}
+        onClick={props.pressButton}
         name="up"
-        isPressed={props.keyPressMap["up"]}
+        isPressed={props.keyPressMap.up}
         isOn={props.isOn}
       />
       <Key
         onClick={props.pressButton}
         name="clear"
-        isPressed={props.keyPressMap["clear"]}
+        isPressed={props.keyPressMap.clear}
         isOn={props.isOn}
       />
 

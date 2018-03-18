@@ -1,5 +1,5 @@
-import React from 'react';
-import Key from './Key';
+import React from "react";
+import Key from "./Key";
 
 const NumberPad = props => (
   <div className="number-pad">

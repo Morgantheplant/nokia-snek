@@ -1,5 +1,5 @@
-import React from 'react';
-import Tile from './Tile';
+import React from "react";
+import Tile from "./Tile";
 
 const SnakeBoard = props => (
   <div className="board-container">

@@ -3,8 +3,6 @@ const createNewBoard = (height, width) =>
 
 const addSnakeToBoard = (board = [], snake = []) => {
   if (board.length) {
-    const height = board.length;
-    const width = board[0].length;
     snake.slice(0, snake.length).forEach(({ x, y }) => {
       board[x][y] = 1;
     });
@@ -13,7 +11,7 @@ const addSnakeToBoard = (board = [], snake = []) => {
 };
 
 const addSnackToBoard = (board, { x, y }) => {
-  if(x >= 0 && y >=0){
+  if (x >= 0 && y >= 0) {
     board[x][y] = 2;
   }
   return board;

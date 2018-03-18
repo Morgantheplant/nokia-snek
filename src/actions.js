@@ -10,32 +10,55 @@ import {
   BUTTONS_OFF,
   DEPRESS_BUTTON,
   SCREENS,
-  BUTTON_NAMES
-} from "./constants";
-import { snakeReducer, screenReducer } from "./selectors";
-import { findNextCoords, hasCollision } from "./reducers";
+  BUTTON_NAMES,
+} from './constants';
+import { snakeReducer, screenReducer } from './selectors';
+import { findNextCoords, hasCollision } from './reducers';
 
 const changeDirection = direction => ({
   type: CHANGE_DIRECTION,
-  direction
+  direction,
 });
 
-export const nextTick = () => (dispatch, getState) => {
-  const snakeState = snakeReducer(getState());
-  const nextCoords = findNextCoords(snakeState);
-  const collision = hasCollision(snakeState, nextCoords);
-  return collision ? dispatch(gameOver()) : dispatch(moveSnake(nextCoords));
-};
-
-export const showScores = () => ({
-  type: GAME_OVER
+const moveSnake = nextCoords => ({
+  type: MOVE_SNAKE,
+  nextCoords,
 });
 
-export const titleScreen = () => ({
-  type: TITLE_SCREEN
+const showScores = () => ({
+  type: GAME_OVER,
 });
 
-export const gameOver = () => (dispatch, getState) => {
+const titleScreen = () => ({
+  type: TITLE_SCREEN,
+});
+
+const startNewGame = () => ({
+  type: NEW_GAME,
+});
+
+const buttonsOn = name => ({
+  type: BUTTONS_ON,
+  name,
+});
+
+const buttonsOff = name => ({
+  type: BUTTONS_OFF,
+  name,
+});
+
+const depressButton = name => ({
+  type: DEPRESS_BUTTON,
+  name,
+});
+
+const boardHeight = (height, width) => ({
+  type: CHANGE_BOARD_HEIGHT,
+  height,
+  width,
+});
+
+const gameOver = () => (dispatch, getState) => {
   dispatch(showScores());
   setTimeout(() => {
     const screen = screenReducer(getState());
@@ -44,17 +67,15 @@ export const gameOver = () => (dispatch, getState) => {
   }, 5000);
 };
 
-export const moveSnake = nextCoords => ({
-  type: MOVE_SNAKE,
-  nextCoords
-});
-
-const startNewGame = () => ({
-  type: NEW_GAME
-});
+export const nextTick = () => (dispatch, getState) => {
+  const snakeState = snakeReducer(getState());
+  const nextCoords = findNextCoords(snakeState);
+  const collision = hasCollision(snakeState, nextCoords);
+  return collision ? dispatch(gameOver()) : dispatch(moveSnake(nextCoords));
+};
 
 let timer;
-export const pressButton = button => dispatch => {
+export const pressButton = button => (dispatch) => {
   // handle secondary button actions
   switch (button) {
     case BUTTON_NAMES.HOME:
@@ -69,7 +90,7 @@ export const pressButton = button => dispatch => {
   }
   // handle button pressing
   dispatch(buttonsOn(button));
-  setTimeout(function() {
+  setTimeout(() => {
     dispatch(depressButton(button));
   }, 50);
   // handle button lights
@@ -79,40 +100,19 @@ export const pressButton = button => dispatch => {
   }, 2000);
 };
 
-export const buttonsOn = name => ({
-  type: BUTTONS_ON,
-  name
-});
-
-export const buttonsOff = name => ({
-  type: BUTTONS_OFF,
-  name
-});
-
-export const depressButton = name => ({
-  type: DEPRESS_BUTTON,
-  name
-});
-
 let debouncer;
-export const changeBoardSize = ({ currentTarget }) => dispatch => {
+export const changeBoardSize = ({ currentTarget }) => (dispatch) => {
   clearTimeout(debouncer);
-  debouncer = setTimeout(function() {
-    const { innerHeight, innerWidth } = currentTarget;
+  debouncer = setTimeout(() => {
+    const { innerHeight } = currentTarget;
     const height = innerHeight * 0.0286;
     const width = height * 1.38;
-    dispatch(pressButton(BUTTON_NAMES.CLEAR)); // light up buttons
+    dispatch(pressButton(BUTTON_NAMES.CLEAR)); // reset game
     dispatch(boardHeight(Math.round(height), Math.round(width)));
   }, 100);
 };
 
-const boardHeight = (height, width) => ({
-  type: CHANGE_BOARD_HEIGHT,
-  height,
-  width
-});
-
-export const keyDownHandler = ({ key }) => dispatch => {
+export const keyDownHandler = ({ key }) => (dispatch) => {
   const button = KEY_LOOKUP[key];
   button && dispatch(pressButton(button));
 };
