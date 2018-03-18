@@ -18,21 +18,21 @@ const ActiveScreen = props => {
       return (
         <GameOver
           height={props.height}
-          width={props.width}
-          score={props.score}
-          isOn={props.isOn}
           highScore={props.highScore}
+          isOn={props.isOn}
+          score={props.score}
+          width={props.width}
         />
       );
     case SCREENS.SNAKE:
       return (
         <SnakeBoard
           board={props.board}
-          height={props.height}
-          width={props.width}
           colorBase={props.colorBase}
-          tileSize={props.tileSize}
+          height={props.height}
           isOn={props.isOn}
+          tileSize={props.tileSize}
+          width={props.width}
         />
       );
     default:
@@ -50,8 +50,8 @@ const mapStateToProps = state => {
   const {
     colorBase,
     gameOver,
-    highScore,
     height,
+    highScore,
     snack,
     snake,
     tileSize,
@@ -65,13 +65,13 @@ const mapStateToProps = state => {
     board,
     colorBase,
     gameOver,
-    highScore,
     height,
+    highScore,
+    isOn,
     score,
     screen,
     tileSize,
-    width,
-    isOn
+    width
   };
 };
 

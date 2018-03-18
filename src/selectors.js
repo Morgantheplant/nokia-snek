@@ -23,7 +23,7 @@ export const boardSelector = (height, width, snake, snack) => {
   return addSnackToBoard(updatedBoard, snack);
 };
 
-export const snakeReducer = state => state.snakeReducer;
 export const numbersReducer = state => state.numbersReducer;
 export const scoreReducer = state => state.scoreReducer;
 export const screenReducer = state => state.screenReducer;
+export const snakeReducer = state => state.snakeReducer;

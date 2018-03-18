@@ -8,13 +8,13 @@ const SnakeBoard = props => (
         fullRow.forEach((tileState, j) =>
           acc.push(
             <Tile
-              colorBase={props.colorBase}
               col={j}
+              colorBase={props.colorBase}
+              isOn={props.isOn}
               key={`${i}-${j}`}
               row={i}
-              type={tileState}
               tileSize={props.tileSize}
-              isOn={props.isOn}
+              type={tileState}
             />
           )
         );

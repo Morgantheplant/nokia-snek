@@ -1,18 +1,18 @@
 import { combineReducers } from "redux";
 import {
-  CHANGE_DIRECTION,
+  BUTTONS_OFF,
+  BUTTONS_ON,
   CHANGE_BOARD_HEIGHT,
+  CHANGE_DIRECTION,
+  DEPRESS_BUTTON,
   DIRECTIONS,
+  GAME_OVER,
   INVALID_DIRECTION_MAP,
+  KEYPAD,
   MOVE_SNAKE,
   NEW_GAME,
-  TITLE_SCREEN,
-  GAME_OVER,
-  BUTTONS_ON,
-  BUTTONS_OFF,
-  DEPRESS_BUTTON,
   SCREENS,
-  KEYPAD
+  TITLE_SCREEN
 } from "./constants";
 
 const getColorBase = () => 176;
@@ -30,12 +30,12 @@ const defaultState = {
   colorBase: getColorBase(),
   direction: DIRECTIONS.RIGHT,
   height: screenHeight,
-  width: screenWidth,
-  tileSize: 5,
+  highScore: 0,
   shouldAnimate: false,
   snack: {},
   snake: [],
-  highScore: 0
+  tileSize: 5,
+  width: screenWidth
 };
 
 const getBaseSnake = (height, width, length = 4) => {

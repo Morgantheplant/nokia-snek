@@ -5,40 +5,40 @@ import Key from "./Key";
 import { connect } from "react-redux";
 import { pressButton } from "../actions";
 import { numbersReducer } from "../selectors";
-import { BUTTON_NAMES } from '../constants';
+import { BUTTON_NAMES } from "../constants";
 
 const Phone = props => (
   <div className="phone-base">
     <div className="phone-container">
       <Screen />
       <Key
-        onClick={props.pressButton}
-        name={BUTTON_NAMES.HOME}
+        isOn={props.isOn}
         isPressed={props.keyPressMap.home}
-        isOn={props.isOn}
+        name={BUTTON_NAMES.HOME}
+        onClick={props.pressButton}
       />
       <Key
-        onClick={props.pressButton}
-        name={BUTTON_NAMES.DOWN}
-        isPressed={props.keyPressMap.down}
         isOn={props.isOn}
-      />
-      <Key
-        onClick={props.pressButton}
-        name={BUTTON_NAMES.UP}
-        isPressed={props.keyPressMap.up}
-        isOn={props.isOn}
-      />
-      <Key
-        onClick={props.pressButton}
-        name={BUTTON_NAMES.CLEAR}
         isPressed={props.keyPressMap.clear}
+        name={BUTTON_NAMES.CLEAR}
+        onClick={props.pressButton}
+      />
+      <Key
         isOn={props.isOn}
+        isPressed={props.keyPressMap.down}
+        name={BUTTON_NAMES.DOWN}
+        onClick={props.pressButton}
+      />
+      <Key
+        isOn={props.isOn}
+        isPressed={props.keyPressMap.up}
+        name={BUTTON_NAMES.UP}
+        onClick={props.pressButton}
       />
       <NumberPad
-        keyPressMap={props.keyPressMap}
-        keyPad={props.keyPad}
         isOn={props.isOn}
+        keyPad={props.keyPad}
+        keyPressMap={props.keyPressMap}
         onClick={props.pressButton}
       />
       <img src="./images/Nokia_5110.png" alt="nokia 5110" />

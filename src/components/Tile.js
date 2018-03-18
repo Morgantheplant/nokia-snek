@@ -1,4 +1,3 @@
-import "babel-polyfill";
 import React from "react";
 
 const prettyColor = (a, b, c, d) => {
@@ -10,7 +9,7 @@ const prettyColor = (a, b, c, d) => {
 const snakeColor = "rgb(3,83,59)";
 const borderColorOn = "rgba(42, 163, 122, 0.5)";
 
-const getColor = ({ type, colorBase, row, col, isOn }) => {
+const getColor = ({ col, colorBase, isOn, row, type }) => {
   switch (type) {
     case 1:
       return snakeColor;
@@ -28,13 +27,14 @@ const Snack = ({ backgroundColor }) => (
   </div>
 );
 
-const Tile = ({ row, col, tileSize = 10, colorBase, type, isOn }) => {
+// 0 - empty tile, 1 - snake, 2 - snack
+const Tile = ({ col, colorBase, isOn, row, tileSize = 10, type }) => {
   const backgroundColor = getColor({
-    type,
-    colorBase,
-    row,
     col,
-    isOn
+    colorBase,
+    isOn,
+    row,
+    type
   });
   return (
     <div
