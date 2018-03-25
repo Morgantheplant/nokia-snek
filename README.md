@@ -1,6 +1,6 @@
 # Nokia Snek
 
-Snake game build with react and redux.
+Snake game built with [React](https://reactjs.org/) and [Redux](https://redux.js.org/).
 
 # http://nokia-snek.herokuapp.com/
 
